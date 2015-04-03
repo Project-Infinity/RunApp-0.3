@@ -105,9 +105,6 @@ public class LoadApp extends ActionBarActivity {
 
         resetTables();
 
-        ActionBar ab = getSupportActionBar();
-        ab.setIcon(R.drawable.final_logo_white);
-        ab.setTitle(R.string.app_name);
         new Load().execute();
     }
 
@@ -149,7 +146,8 @@ public class LoadApp extends ActionBarActivity {
                     tagline = groups.getString("tagline");
                     bulletin = groups.getString("bulletin");
                     isClosed = groups.getInt("isClosed");
-                    addGroupSQLite(groupID, groupName, tagline, bulletin, isClosed);
+                    createdBy = groups.getInt("createdBy");
+                    addGroupSQLite(groupID, groupName, tagline, bulletin, isClosed, createdBy);
                 }
                 //Group Details
                 group_details_json = jsonParser.getJSONFromUrl(GROUP_DETAILS_URL);
@@ -241,10 +239,10 @@ public class LoadApp extends ActionBarActivity {
         infinityDbHandler.close();
     }
 
-    private void addGroupSQLite(Integer id, String groupName, String tagline, String bulletin, Integer isClosed){
+    private void addGroupSQLite(Integer id, String groupName, String tagline, String bulletin, Integer isClosed, Integer createdBy){
         InfinityDBHandler infinityDbHandler = new InfinityDBHandler(this, null, null, 1);
 
-        Group newGroup = new Group(id, groupName, tagline, bulletin, isClosed);
+        Group newGroup = new Group(id, groupName, tagline, bulletin, isClosed, createdBy);
         infinityDbHandler.addGroup(newGroup);
 
         infinityDbHandler.close();

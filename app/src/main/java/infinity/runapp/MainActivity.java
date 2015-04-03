@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import infinity.runapp.fragments.AssignWorkoutFragment;
 import infinity.runapp.fragments.CreateGroupFragment;
 import infinity.runapp.fragments.CreateWorkoutFragment;
 import infinity.runapp.fragments.GroupsFragment;
@@ -26,6 +27,8 @@ import infinity.runapp.fragments.NavigationDrawerFragment;
 import infinity.runapp.fragments.ProfileFragment;
 import infinity.runapp.fragments.WorkoutSummaryFragment;
 import infinity.runapp.fragments.WorkoutsFragment;
+import infinity.runapp.getsets.ActiveUser;
+import infinity.runapp.library.InfinityDBHandler;
 
 
 public class MainActivity extends ActionBarActivity
@@ -175,6 +178,23 @@ public class MainActivity extends ActionBarActivity
         fm.beginTransaction()
                 .replace(R.id.container, profile)
                 .commit();
+    }
+
+    public void goAssignWorkout(View view){
+        Fragment fragment = new AssignWorkoutFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
+    }
+
+    // Database Methods
+    public Integer getUserID(){
+        InfinityDBHandler dbHandler = new InfinityDBHandler(this, null, null, 1);
+
+        ActiveUser myActiveUser = dbHandler.setUser();
+
+        return myActiveUser.getUserID();
     }
 
     public void changeProfilePhoto(){

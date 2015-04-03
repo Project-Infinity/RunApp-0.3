@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 import infinity.runapp.getsets.ActiveUser;
 import infinity.runapp.getsets.AssignedWorkouts;
 import infinity.runapp.getsets.Group;
@@ -74,6 +76,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_TAGLINE = "tagline";
     public static final String COLUMN_BULLETIN = "bulletin";
     public static final String COLUMN_ISCLOSED = "isClosed";
+    //createdBy^
 
     //Group Details table
     private static final String TABLE_GROUP_DETAILS = "GroupDetails";
@@ -183,7 +186,8 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
                 COLUMN_GROUPNAME + " TEXT, " +
                 COLUMN_TAGLINE + " TEXT, " +
                 COLUMN_BULLETIN + " TEXT, " +
-                COLUMN_ISCLOSED + " INTEGER);";
+                COLUMN_ISCLOSED + " INTEGER, " +
+                COLUMN_CREATEDBY + " INTEGER);";
 
         db.execSQL(CREATE_TABLE);
     }
@@ -297,6 +301,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_TAGLINE, group.getmTagline());
         values.put(COLUMN_BULLETIN, group.getmBulletin());
         values.put(COLUMN_ISCLOSED, group.getmIsClosed());
+        values.put(COLUMN_CREATEDBY, group.getmCreatedBy());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -456,9 +461,8 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
             groupList = new Group[count];
 
             cur.moveToFirst();
-            if(count > 1){
-                cur.move(count);
-            }
+            cur.move(count);
+
 
             for (int i = 0; i < count; i++) {
                 groupList[i] = new Group();
@@ -502,9 +506,8 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
             int index = count - length;
 
             cur.moveToFirst();
-            if (count > 1){
-                cur.move(index);
-            }
+            cur.move(index);
+
 
             for (int i = 0; i < length; i++){
                 newHistory[i] = new History();
@@ -550,8 +553,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
 
             int index = count - length;
             cur.moveToFirst();
-            if (count > 1)
-                cur.move(index);
+            cur.move(index);
 
             for (int i = 0; i < length; i++){
                 message[i] = new RecentMessages();
@@ -603,8 +605,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
 
             int index = count - length;
             cur.moveToFirst();
-            if (count > 1)
-                cur.move(index);
+            cur.move(index);
 
             for (int i = 0; i < length; i++){
                 workouts[i] = new AssignedWorkouts();
@@ -622,9 +623,83 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
             workouts[0].setmWorkoutName("");
             workouts[0].setmDistance(0.0);
             workouts[0].setmExprDate("");
-
         }
         db.close();
         return workouts;
+    }
+
+    public ArrayList<String> groupAdmin(Integer userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT groupName " +
+                "FROM " + TABLE_GROUPS +
+                " WHERE createdBy = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        ArrayList<String> group = new ArrayList<>();
+        group.add("");
+
+        if (cur != null && cur.moveToFirst()) {
+            int count = cur.getCount();
+
+            cur.moveToFirst();
+
+            for (int i = 0; i < count; i++) {
+                group.add(cur.getString(0));
+                if (count > 1)
+                    cur.moveToNext();
+            }
+            cur.close();
+            db.close();
+        }
+        return group;
+    }
+
+    public ArrayList<String> createdWorkouts(Integer userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT workoutName, distance " +
+                "FROM " + TABLE_WORKOUTS +
+                " WHERE createdBy = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        ArrayList<String> workouts = new ArrayList<>();
+        workouts.add("");
+
+        if (cur != null && cur.moveToFirst()) {
+            int count = cur.getCount();
+
+            cur.moveToFirst();
+
+            for (int i = 0; i < count; i++) {
+                workouts.add(cur.getString(0));
+                if (count > 1)
+                    cur.moveToNext();
+            }
+            cur.close();
+            db.close();
+        }
+        return workouts;
+    }
+
+    public Double getDistance(String wname, Integer userID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT distance " +
+                "FROM " + TABLE_WORKOUTS +
+                " WHERE workoutName = '" + wname +
+                "' AND createdBy = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        Double distance = cur.getDouble(0);
+
+        cur.close();
+        db.close();
+
+        return distance;
     }
 }

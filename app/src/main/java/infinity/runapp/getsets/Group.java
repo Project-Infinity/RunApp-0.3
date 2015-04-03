@@ -9,23 +9,28 @@ public class Group {
     private String mTagline;
     private String mBulletin;
     private Integer mIsClosed;
+    private Integer mCreatedBy;
 
     public Group(){
 
     }
 
-    public Group(Integer groupID, String groupName, String tagline, String bulletin, Integer isClosed)
+    public Group(Integer groupID, String groupName, String tagline, String bulletin, Integer isClosed, Integer createdBy)
     {
         mGroupID = groupID;
         mGroupName = groupName;
         mTagline = tagline;
         mBulletin = bulletin;
         mIsClosed = isClosed;
-
+        mCreatedBy = createdBy;
     }
 
     public Group(Integer groupID, String groupName){
         mGroupID = groupID;
+        mGroupName = groupName;
+    }
+
+    public Group(String groupName){
         mGroupName = groupName;
     }
 
@@ -72,5 +77,13 @@ public class Group {
     @Override
     public String toString(){
         return mGroupName;
+    }
+
+    public Integer getmCreatedBy() {
+        return mCreatedBy;
+    }
+
+    public void setmCreatedBy(Integer mCreatedBy) {
+        this.mCreatedBy = mCreatedBy;
     }
 }

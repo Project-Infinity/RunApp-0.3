@@ -23,6 +23,10 @@ public class Workouts {
 
     }
 
+    public Workouts(String workoutName){
+        mWorkoutName = workoutName;
+    }
+
     public Integer getmWorkoutID() {
         return mWorkoutID;
     }
@@ -57,6 +61,6 @@ public class Workouts {
 
     @Override
     public String toString(){
-        return mWorkoutName;
+        return mWorkoutName + " - " + mDistance + " meters";
     }
 }

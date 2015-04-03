@@ -70,8 +70,9 @@
     <string name="title_activity_no_network">NoNetwork</string>
     <string name="tryAgain">This device is does not currently have a network connection.
         Please connect to a network and try again.</string>
-    <string name="title_activity_load_app">LoadApp</string>
+    <string name="title_activity_load_app">Loading</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="ChooseGroup">Choose group that you administer to assign this workout to.</string>
 
 </resources>
