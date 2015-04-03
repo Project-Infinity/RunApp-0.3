@@ -140,7 +140,6 @@ public class RunActivity extends ActionBarActivity implements
 
         mRequestingLocationUpdates = false;
         mLastUpdateTime = "";
-        mStopwatch.setBase(SystemClock.elapsedRealtime());
 
         // Update values using data stored in the Bundle.
         updateValuesFromBundle(savedInstanceState);
@@ -240,6 +239,7 @@ public class RunActivity extends ActionBarActivity implements
             mRequestingLocationUpdates = true;
             setButtonsEnabledState();
             startLocationUpdates();
+            mStopwatch.setBase(SystemClock.elapsedRealtime());
             mStopwatch.start();
         }
     }
@@ -301,7 +301,7 @@ public class RunActivity extends ActionBarActivity implements
 //            googleMap.addMarker(marker);
 
             //Set Camera Position on map
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 15), 2000, null);
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 17), 2000, null);
 
             //Set Polyline
             polylineOptions = new PolylineOptions();
