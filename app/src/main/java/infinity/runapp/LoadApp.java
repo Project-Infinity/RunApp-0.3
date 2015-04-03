@@ -115,7 +115,7 @@ public class LoadApp extends ActionBarActivity {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(LoadApp.this);
-            pDialog.setMessage("Loading In...");
+            pDialog.setMessage("Loading ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
