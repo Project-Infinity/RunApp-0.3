@@ -328,9 +328,6 @@ public class LoadApp extends ActionBarActivity {
 //                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setLogo(R.drawable.final_logo_white);
         actionBar.setTitle(s);
     }
 }

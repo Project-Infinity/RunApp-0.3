@@ -104,5 +104,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/saveBtn"
+            android:background="@color/piGreen"
+            android:layout_margin="10dp"
+            android:layout_marginTop="25dp"
+            android:onClick="save"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discard"
+            android:id="@+id/discardBtn"
+            android:background="@color/piGreen"
+            android:layout_margin="10dp"
+            android:layout_marginTop="25dp"
+            android:onClick="discard"/>
+    </LinearLayout>
+
 
 </LinearLayout>
