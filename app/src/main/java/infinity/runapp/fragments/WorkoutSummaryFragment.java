@@ -32,7 +32,7 @@ public class WorkoutSummaryFragment extends Fragment
     int success;
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-    private static final String URL = "http://cgi.soic.indiana.edu/~team36/infinity/create_workout.php";
+    private static final String URL = "http://cgi.soic.indiana.edu/~team36/infinity/save_workout.php";
 
     JSONParser mJSONParser;
     Button save;
@@ -59,7 +59,7 @@ public class WorkoutSummaryFragment extends Fragment
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new saveWorkout().execute();
+                ((MainActivity)getActivity()).goHistory(v);
             }
         });
 

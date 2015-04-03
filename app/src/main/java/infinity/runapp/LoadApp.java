@@ -115,7 +115,7 @@ public class LoadApp extends ActionBarActivity {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(LoadApp.this);
-            pDialog.setMessage("Logging In...");
+            pDialog.setMessage("Loading In...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -306,12 +306,12 @@ public class LoadApp extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

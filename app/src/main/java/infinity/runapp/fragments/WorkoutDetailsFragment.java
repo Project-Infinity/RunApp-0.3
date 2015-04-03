@@ -1,6 +1,5 @@
 package infinity.runapp.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,16 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import infinity.runapp.library.JSONParser;
+import infinity.runapp.MainActivity;
 import infinity.runapp.R;
+import infinity.runapp.library.InfinityDBHandler;
+import infinity.runapp.library.JSONParser;
 
 /**
  * Created by adc on 3/23/15.
@@ -35,7 +30,9 @@ public class WorkoutDetailsFragment extends Fragment {
     private static final String TAG_COUNT = "count";
     private ArrayList<String> workoutDetails = new ArrayList<>();
     private ListView mListView;
-    private Integer phaseCount;
+    private TextView distance;
+    private TextView createdBy;
+    private TextView expDate;
 
     View v;
 
@@ -45,60 +42,30 @@ public class WorkoutDetailsFragment extends Fragment {
         v = inflater.inflate(R.layout.workout_details_layout, container, false);
         Bundle bundle = this.getArguments();
 
-        workoutName = bundle.getString("workout");
+        workoutName = bundle.getString("workoutName");
+        distance = (TextView) v.findViewById(R.id.distance);
+        createdBy = (TextView) v.findViewById(R.id.createdBy);
+        expDate = (TextView) v.findViewById(R.id.expDate);
 
         TextView gName = (TextView) v.findViewById(R.id.heading);
 
         gName.setText(workoutName);
 
-        new ShowWorkoutDetails().execute();
+        showWorkoutDetails();
 
         return v;
     }
 
-    class ShowWorkoutDetails extends AsyncTask<String, String, String>{
+    public void showWorkoutDetails() {
+        Integer userID = ((MainActivity)getActivity()).getUserID();
 
-        @Override
-        protected void onPreExecute(){ super.onPreExecute(); }
+        InfinityDBHandler db = new InfinityDBHandler(getActivity(), null, null, 1);
 
-        @Override
-        protected String doInBackground(String... args) {
-            try {
-                List<NameValuePair> params = new ArrayList<>();
-                params.add(new BasicNameValuePair("workoutName", workoutName));
-                JSONObject json = mJSONParser.makeHttpRequest(URL, "POST", params);
+        ArrayList<String> workoutDetails = db.workoutDetails(userID, workoutName);
 
-                phaseCount = json.getInt(TAG_COUNT);
-
-                for (int i = 0; i < phaseCount; i++)
-                {
-                    int num = i + 1;
-                    String thisPhase = "phase" + Integer.toString(num);
-                    String phase = String.valueOf(json.getInt(thisPhase));
-
-                    String thisRep = "reps" + Integer.toString(num);
-                    String reps = String.valueOf(json.getInt(thisRep));
-
-                    String thisDistance = "distance" + Integer.toString(num);
-                    String distance = String.valueOf(json.getDouble(thisDistance));
-
-                    workoutDetails.add("Phase: " + phase + "     Reps: " + reps + "     Distance: " + distance + " meters");
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(String file_url){
-            if(file_url != null){
-                Toast.makeText(getActivity(), file_url, Toast.LENGTH_LONG).show();
-            }
-
-            setList();
-        }
-
+        distance.setText(workoutDetails.get(0));
+        createdBy.setText(db.getUserName(Integer.parseInt(workoutDetails.get(1))));
+        expDate.setText(workoutDetails.get(2));
 
     }
 

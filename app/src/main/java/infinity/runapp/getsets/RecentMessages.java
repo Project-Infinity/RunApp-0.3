@@ -107,6 +107,6 @@ public class RecentMessages {
 
     @Override
     public String toString(){
-        return mSender + "\t" + mSubject + "\t" + mMessage + "\t" + mSendingDate;
+        return mSender + "\t" + mSubject + "\t" + mSendingDate;
     }
 }

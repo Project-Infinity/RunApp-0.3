@@ -64,170 +64,152 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <!--Welcome Message-->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/white"
+        android:id="@+id/welcome"
+        android:textSize="20sp"
+        android:background="@color/piGreen"
+        android:gravity="center"
+        android:onClick="goProfile"
+        />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+
+        <!--Next Run-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical"
-            >
+            android:onClick="goWorkouts"
+            android:layout_weight="33">
 
-            <!--Welcome Message-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/white"
-                android:id="@+id/welcome"
-                android:textSize="20sp"
-                android:background="@color/piGreen"
-                android:gravity="center"
-                android:onClick="goProfile"
-                />
-
-
-            <!--Next Run-->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:onClick="goWorkouts">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Upcoming Runs"
-                        android:textSize="25sp"
-                        android:layout_marginBottom="10dp"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textSize="20sp"
-                        android:id="@+id/upcomingCount"
-                        />
-                </LinearLayout>
-
-                <ListView
-                    android:id="@+id/recentWorkouts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:text=""
-                    android:textSize="20sp"
-                    />
-
-            </LinearLayout>
-
-            <!--Horizontal line-->
-            <View
-                android:background="@color/black"
-                android:layout_width = "match_parent"
-                android:layout_height="1dp"
-                />
-
-            <!--Upcoming Goal-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:onClick="goMessages"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Messages"
-                        android:textSize="25sp"
-                        android:layout_marginBottom="10dp"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textSize="20sp"
-                        android:id="@+id/newCount"
-                        />
-
-                </LinearLayout>
-
-                <ListView
-                    android:id="@+id/newMessages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="50dp"
-                    android:text=""
-                    />
-            </LinearLayout>
-
-            <!--Horizontal line-->
-            <View
-                android:background="@color/black"
-                android:layout_width = "match_parent"
-                android:layout_height="1dp"
-                />
-
-            <!--Last Run-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:onClick="goHistory"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recent History"
-                    android:textSize="25sp"
+                    android:text="Upcoming Runs"
+                    android:textSize="20sp"
                     android:layout_marginBottom="10dp"
                     />
 
-                <!--Upcoming Display-->
-                <ListView
-                    android:id="@+id/recentHistory"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:textSize="20sp"
-                    android:layout_marginStart="50dp"
-                    android:text=""
+                    android:id="@+id/upcomingCount"
+                    />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/recentWorkouts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text=""
+                android:textSize="20sp"
+                />
+
+        </LinearLayout>
+
+        <!--Horizontal line-->
+        <View
+            android:background="@color/black"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            />
+
+        <!--Last Run-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:onClick="goHistory"
+            android:layout_weight="33"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recent History"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <ListView
+                android:id="@+id/recentHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginStart="50dp"
+                android:text=""
+                />
+
+        </LinearLayout>
+
+        <!--Horizontal line-->
+        <View
+            android:background="@color/black"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            />
+
+        <!--Messages-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:onClick="goMessages"
+            android:layout_weight="33"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Messages"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textSize="20sp"
+                    android:id="@+id/newCount"
                     />
 
             </LinearLayout>
 
-            <!--Horizontal line-->
-            <View
-                android:background="@color/black"
-                android:layout_width = "match_parent"
-                android:layout_height="1dp"
+            <ListView
+                android:id="@+id/newMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginLeft="50dp"
+                android:text=""
                 />
-
         </LinearLayout>
-    </ScrollView>
-    <!--Quick Start-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -238,5 +220,6 @@
             android:background="@color/dGreen"
             android:onClick="goRun"
             />
-    </RelativeLayout>
+
+    </LinearLayout>
 </LinearLayout>

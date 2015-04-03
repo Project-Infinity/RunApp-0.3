@@ -441,44 +441,6 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
         return myActiveUser;
     }
 
-    //Groups Tables
-    public Group [] groupList(Integer userID) {
-        String sql_query = "SELECT g.groupID, g.groupName, gd.hasAlerts, gd.isAdmin, counter.members " +
-                "FROM " + TABLE_GROUPS + " AS g, " + TABLE_GROUP_DETAILS + " AS gd " +
-                "LEFT JOIN (SELECT groupID, COUNT(*) AS members " +
-                "FROM " + TABLE_GROUP_DETAILS + " GROUP BY groupID) AS counter ON (gd.groupID = counter.groupID) " +
-                "WHERE g.groupID = gd.groupID AND gd.userID = " + userID;
-
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cur = db.rawQuery(sql_query, null);
-
-        Group[] groupList;
-
-        if (cur != null) {
-            int count = cur.getCount();
-
-            groupList = new Group[count];
-
-            cur.moveToFirst();
-
-            for (int i = 0; i < count; i++) {
-                groupList[i] = new Group();
-                groupList[i].setmGroupID(cur.getInt(0));
-                groupList[i].setmGroupName(cur.getString(1));
-                cur.moveToNext();
-            }
-            cur.close();
-        }
-        else{
-            groupList = new Group[1];
-            groupList[0].setmGroupID(0);
-            groupList[0].setmGroupName("You don't belong to any groups.");
-        }
-
-        db.close();
-        return groupList;
-    }
 
     // Get int number of rows for list of past workouts
     public History [] history(Integer userID, int number){
@@ -618,6 +580,33 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
         return workouts;
     }
 
+    public ArrayList<String> workoutList(Integer userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT w.workoutID, w.workoutName, w.distance, aw.exprDate " +
+                "FROM " + TABLE_WORKOUTS + " as w, " + TABLE_ASSIGNED + " as aw " +
+                "WHERE w.workoutID = aw.workoutID AND aw.userID = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        ArrayList<String> workout = new ArrayList<>();
+
+        if (cur != null && cur.moveToFirst()) {
+            int count = cur.getCount();
+
+            cur.moveToFirst();
+
+            for (int i = 0; i < count; i++) {
+                workout.add(cur.getString(1));
+                cur.moveToNext();
+            }
+            cur.close();
+            db.close();
+        }
+        return workout;
+    }
+
+
     public ArrayList<String> groupAdmin(Integer userID) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -628,7 +617,6 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
         Cursor cur = db.rawQuery(query, null);
 
         ArrayList<String> group = new ArrayList<>();
-        group.add("");
 
         if (cur != null && cur.moveToFirst()) {
             int count = cur.getCount();
@@ -637,6 +625,34 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
 
             for (int i = 0; i < count; i++) {
                 group.add(cur.getString(0));
+                cur.moveToNext();
+            }
+            cur.close();
+            db.close();
+        }
+        return group;
+    }
+
+    public ArrayList<String> groupList(Integer userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT g.groupID, g.groupName, gd.hasAlerts, gd.isAdmin, counter.members " +
+                "FROM " + TABLE_GROUPS + " AS g, " + TABLE_GROUP_DETAILS + " AS gd " +
+                "LEFT JOIN (SELECT groupID, COUNT(*) AS members " +
+                "FROM " + TABLE_GROUP_DETAILS + " GROUP BY groupID) AS counter ON (gd.groupID = counter.groupID) " +
+                "WHERE g.groupID = gd.groupID AND gd.userID = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        ArrayList<String> group = new ArrayList<>();
+
+        if (cur != null && cur.moveToFirst()) {
+            int count = cur.getCount();
+
+            cur.moveToFirst();
+
+            for (int i = 0; i < count; i++) {
+                group.add(cur.getString(1));
                 cur.moveToNext();
             }
             cur.close();
@@ -690,5 +706,47 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
         db.close();
 
         return distance;
+    }
+
+    public String getUserName(Integer userID){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT fName, lName FROM " + TABLE_USERS +
+                " WHERE userID = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        cur.moveToFirst();
+
+        String fullName =  cur.getString(0) + " " + cur.getString(1);
+
+        cur.close();
+        db.close();
+
+        return fullName;
+    }
+
+    public ArrayList<String> workoutDetails(Integer userID, String workoutName)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT w.distance, w.createdBy, aw.exprDate" +
+                " FROM " + TABLE_WORKOUTS + " AS w, " + TABLE_ASSIGNED + " AS aw" +
+                " WHERE w.workoutName = '" + workoutName +
+                "' AND w.workoutID = aw.workoutID AND aw.userID = " + userID;
+
+        Cursor cur = db.rawQuery(query, null);
+
+        ArrayList<String> woDetails = new ArrayList<>();
+
+        cur.moveToFirst();
+        woDetails.add(cur.getString(0));
+        woDetails.add(cur.getString(1));
+        woDetails.add(cur.getString(2));
+
+        cur.close();
+        db.close();
+
+        return woDetails;
     }
 }

@@ -20,14 +20,83 @@
         android:id="@+id/heading"
         android:textColor="@color/piGreen"/>
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/workoutList"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Distance"
+            android:id="@+id/textView8"
+            android:gravity="center_vertical|end"
+            android:layout_margin="5dp"
+            />
 
-    </RelativeLayout>
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:id="@+id/distance"
+            android:gravity="center_vertical|end"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Expiration Date"
+            android:id="@+id/textView9"
+            android:gravity="center_vertical|end"
+            android:layout_margin="5dp"
+            />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:id="@+id/expDate"
+            android:gravity="center_vertical|end"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Created By"
+            android:id="@+id/textView10"
+            android:gravity="center_vertical|end"
+            android:layout_margin="5dp"
+            />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:id="@+id/createdBy"
+            android:gravity="center_vertical|end"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Run This"
+        android:id="@+id/run"
+        android:background="@color/piGreen"
+        android:layout_marginTop="25dp"
+        android:onClick="goRun"/>
+
+
 </LinearLayout>

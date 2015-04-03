@@ -60,16 +60,16 @@ public class AssignedWorkouts {
         this.mWorkoutName = mWorktoutName;
     }
 
-    @Override
-    public String toString(){
-        return mWorkoutName + "\t" + " Expires: " + mExprDate;
-    }
-
     public Integer getmUserID() {
         return mUserID;
     }
 
     public void setmUserID(Integer mUserID) {
         this.mUserID = mUserID;
+    }
+
+    @Override
+    public String toString(){
+        return mWorkoutName + "\t" + " Expires: " + mExprDate;
     }
 }

@@ -1,10 +1,10 @@
 package infinity.runapp.fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +20,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import infinity.runapp.library.InfinityDBHandler;
-import infinity.runapp.library.JSONParser;
+import infinity.runapp.LoadApp;
 import infinity.runapp.R;
 import infinity.runapp.getsets.ActiveUser;
+import infinity.runapp.library.InfinityDBHandler;
+import infinity.runapp.library.JSONParser;
 
 /**
  * Created by adc on 3/9/15.
@@ -107,11 +108,8 @@ public class CreateGroupFragment extends Fragment
     }
 
     public void goGroups(){
-        Fragment groups = new GroupsFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, groups)
-                .commit();
+        Intent loadApp = new Intent(getActivity(), LoadApp.class);
+        startActivity(loadApp);
     }
 
     public String getUserEmail(){
