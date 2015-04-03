@@ -461,16 +461,12 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
             groupList = new Group[count];
 
             cur.moveToFirst();
-            cur.move(count);
-
 
             for (int i = 0; i < count; i++) {
                 groupList[i] = new Group();
                 groupList[i].setmGroupID(cur.getInt(0));
                 groupList[i].setmGroupName(cur.getString(1));
-                if(count > 1) {
-                    cur.moveToNext();
-                }
+                cur.moveToNext();
             }
             cur.close();
         }
@@ -506,16 +502,12 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
             int index = count - length;
 
             cur.moveToFirst();
-            cur.move(index);
-
 
             for (int i = 0; i < length; i++){
                 newHistory[i] = new History();
                 newHistory[i].setmDateRan(cur.getString(1));
                 newHistory[i].setDistance(cur.getDouble(2));
-                if (count > 1){
-                    cur.moveToNext();
-                }
+                cur.moveToNext();
             }
 
             cur.close();
@@ -564,8 +556,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
                 message[i].setmMessage(cur.getString(4));
                 message[i].setmIsRead(cur.getInt(5));
                 message[i].setmIsDeleted(cur.getInt(6));
-                if (count > 1)
-                    cur.moveToNext();
+                cur.moveToNext();
             }
             cur.close();
         }else{
@@ -613,8 +604,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
                 workouts[i].setmWorkoutName(cur.getString(1));
                 workouts[i].setmDistance(cur.getDouble(2));
                 workouts[i].setmExprDate(cur.getString(3));
-                if (count > 1)
-                    cur.moveToNext();
+                cur.moveToNext();
             }
             cur.close();
         }else{
@@ -647,8 +637,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
 
             for (int i = 0; i < count; i++) {
                 group.add(cur.getString(0));
-                if (count > 1)
-                    cur.moveToNext();
+                cur.moveToNext();
             }
             cur.close();
             db.close();
@@ -675,8 +664,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
 
             for (int i = 0; i < count; i++) {
                 workouts.add(cur.getString(0));
-                if (count > 1)
-                    cur.moveToNext();
+                cur.moveToNext();
             }
             cur.close();
             db.close();
@@ -694,6 +682,7 @@ public class InfinityDBHandler extends SQLiteOpenHelper {
                 "' AND createdBy = " + userID;
 
         Cursor cur = db.rawQuery(query, null);
+        cur.moveToFirst();
 
         Double distance = cur.getDouble(0);
 
